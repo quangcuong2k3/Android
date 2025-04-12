@@ -4,7 +4,7 @@ import {
   StyleSheet, Text, TextInput, View, TouchableOpacity,
   Pressable, Alert, TouchableWithoutFeedback, Keyboard
 } from 'react-native';
-
+import { AntDesign } from '@expo/vector-icons';
 interface ITodo {
   id: number,
   name: string
@@ -49,7 +49,7 @@ export default function App() {
         <Text style={styles.header}>Todo App</Text>
 
         {/* form */}
-        <View style={styles.body}>
+        <View style={styles.form}>
           <TextInput
             value={todo}
             style={styles.todoInput}
@@ -61,7 +61,7 @@ export default function App() {
           />
         </View>
         {/* listTodo */}
-        <View style={styles.body}>
+        <View style={styles.todo}>
           <FlatList
             data={listTodo}
             keyExtractor={item => item.id + ""}
@@ -71,9 +71,13 @@ export default function App() {
                   onPress={() => deleteTodo(item.id)}
                   style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}
                 >
-                  <Text
-                    style={styles.todoItem}>{item.name}
-                  </Text>
+                  <View style={styles.groupTodo}>
+                    <Text
+                      style={styles.todoItem}>{item.name}
+                    </Text>
+                    <AntDesign name="close" size={24} color="black" />
+                  </View>
+
                 </Pressable>
 
               );
@@ -82,24 +86,46 @@ export default function App() {
         </View>
       </View >
     </TouchableWithoutFeedback>
+
   );
 }
 
 const styles = StyleSheet.create({
+  groupTodo: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderWidth: 1,
+    borderStyle: "dashed",
+    justifyContent: "space-between",
+    marginHorizontal: 10,
+    marginBottom: 15,
+    padding: 15
+  },
+  container: {
+    paddingTop: 50,
+    borderWidth: 1,
+    borderColor: "red",
+    flex: 1,
+    backgroundColor: '#fff',
+
+  },
+
   header: {
     backgroundColor: "orange",
     paddingHorizontal: 20,
     textAlign: "center",
-    fontSize: 40
+    fontSize: 40,
 
   },
-  container: {
-    paddingTop: 50,
-    flex: 1,
-    backgroundColor: '#fff',
-    // alignItems: 'center',
-    // justifyContent: 'center',
+  form: {
+    // flex: 2
+    marginBottom: 20
   },
+  todo: {
+    flex: 1
+  },
+
+
   todoInput: {
     borderBottomWidth: 1,
     borderBottomColor: "green",
@@ -108,10 +134,7 @@ const styles = StyleSheet.create({
   },
   todoItem: {
     fontSize: 20,
-    marginBottom: 20,
-    borderWidth: 1,
-    borderStyle: "dashed",
-    padding: 10
+
   },
   body: {
     paddingHorizontal: 10,
