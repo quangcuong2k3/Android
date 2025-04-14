@@ -34,6 +34,7 @@ const App = () => {
                     options={{ title: 'Trang chủ' }}
                 />
                 <Stack.Screen name="review-detail"
+                    options={{ title: 'Chi tiết review' }}
                     component={DetailScreen} />
             </Stack.Navigator>
         </NavigationContainer>
